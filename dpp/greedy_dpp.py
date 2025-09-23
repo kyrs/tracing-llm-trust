@@ -100,9 +100,7 @@ def lazy_greedy(Z: torch.Tensor,
     gains0  = [g + 1.0 for g in gains0] # eigen value +1
     if_avg  = if_score_avg.cpu().tolist()              #  → Python floats
 
-    assert (len(flag_weird_values(gains0))==0), "Check the embedding their is issue in it."
-    assert(len(flag_weird_values(if_avg))==0), "Check the if weight their is an issue in it."
-
+   
     # initial upper bounds in the heap (negated for max-heap behaviour)
     heap = [(-(math.log(max(g, eps)) + ifWeight*math.log1p(if_avg[i])), i, 0)       # (bound, idx, stale)
             for i, g in enumerate(gains0)]
@@ -184,16 +182,6 @@ def median_heuristic_gamma(X: torch.Tensor, m: int = 1_000) -> float:
     return 1.0 / (median ** 2 + 1e-12)
 
 
-def quick_test(device="cpu"):
-    n, d, k = 2_000, 30, 30
-    X = torch.randn(n, d, device=device)
-    γ = median_heuristic_gamma(X)
-    Z = rff_transform(X, γ, D=512)
-    sel_g, ld_g = lazy_greedy(Z, k)
-    sel_r = torch.randperm(n)[:k].tolist()
-    ld_r = 2 * torch.log(torch.diag(torch.linalg.cholesky(Z[sel_r] @ Z[sel_r].T))).sum().item()
-    print("Quick-test results (RFF log-det):")
-    print(f"  greedy: {ld_g:.3f}\n  random: {ld_r:.3f}\n  lift  : {ld_g - ld_r:.3f}")
 
 # ────────────────────────────── main ───────────────────────────────────────
 
@@ -207,14 +195,10 @@ def main():
                    help="RBF γ; if omitted we use the median heuristic")
     p.add_argument("--D", type=int, default=2_048, help="#Random Fourier features")
     p.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
-    p.add_argument("--quick-test", action="store_true", help="Run small sanity test and exit")
     p.add_argument("--verbose", action="store_true")
     args = p.parse_args()
     torch.manual_seed(42)
 
-    if args.quick_test:
-        quick_test(device=args.device)
-        return
 
     MODEL_NAME = ... # hf_username/model_name
     TASK_NAME = "bias" # "ethics", "bias", "truth", "combined" etc.

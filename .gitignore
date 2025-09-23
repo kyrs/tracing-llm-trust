@@ -1,0 +1,50 @@
+# ---- Project-specific ignores ----
+rlhf-env/
+data/data/truthfulness/
+
+# ---- Python general ignores ----
+__pycache__/
+*.so
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+pip-wheel-metadata/
+
+# ---- Virtual environments ----
+env/
+venv/
+ENV/
+.venv/
+
+# ---- Jupyter & IPython ----
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+.profile
+*.sage.py
+
+# ---- IDE / Editor files ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+
+# ---- Logs & Temp ----
+*.log
+*.tmp
+*.temp
+*.cache/
+*.bak
+
+# ---- Test & Coverage ----
+.coverage
+htmlcov/
+.tox/
+.mypy_cache/
+.pytest_cache/
+
+# ---- Misc ----
+*.env
+.envrc
