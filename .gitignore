@@ -1,6 +1,6 @@
 # ---- Project-specific ignores ----
 rlhf-env/
-data/data/truthfulness/
+
 
 # ---- Python general ignores ----
 __pycache__/

@@ -8,7 +8,6 @@ This repository implements a novel approach to enhance the trustworthiness of fi
 
 ## Requirements
 
-- **Hardware**: NVIDIA A6000 GPU (recommended)
 - **Python**: 3.9+
 - **Dependencies**: See `requirements.txt` for complete list
 
