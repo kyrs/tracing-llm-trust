@@ -1,6 +1,6 @@
 # Enhancing Trustworthiness of Fine-Tuned LLMs via Regularized Subset Selection
 
-This is the official repository for **"Enhancing Trustworthiness of Fine-Tuned LLMs via Regularized Subset Selection"**, submitted to and under review at The Fourteenth International Conference on Learning Representations (ICLR 2025).
+This is the official repository for **"Enhancing Trustworthiness of Fine-Tuned LLMs via Regularized Subset Selection"**, submitted to and under review at The Fourteenth International Conference on Learning Representations (ICLR 2026).
 
 ## Overview
 
