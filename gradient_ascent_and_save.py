@@ -29,14 +29,18 @@ CACHE_DIR = os.getenv("HUB_CACHE")
 DEVICE = "cuda"
 
 if SCORES_TYPE == "dpp":
-    print(colored("Are you sure you want to run gradient ascent with DPP scores? (y/n)", "red"))
-    if input() != "y":
-        exit()
+    print(colored("Running gradient ascent with DPP scores...", "yellow"))
+    # Uncomment the following lines if you want to add confirmation:
+    # print(colored("Are you sure you want to run gradient ascent with DPP scores? (y/n)", "red"))
+    # if input() != "y":
+    #     exit()
 
 if SCORES_TYPE == "random":
-    print(colored("Are you sure you want to run gradient ascent with random scores? (y/n)", "red"))
-    if input() != "y":
-        exit()
+    print(colored("Running gradient ascent with random scores...", "yellow"))
+    # Uncomment the following lines if you want to add confirmation:
+    # print(colored("Are you sure you want to run gradient ascent with random scores? (y/n)", "red"))
+    # if input() != "y":
+    #     exit()
 
 def find_submodule(model, dotted_name):
     """

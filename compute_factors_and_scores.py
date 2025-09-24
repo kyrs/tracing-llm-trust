@@ -27,7 +27,7 @@ load_dotenv()
 ##############################################################################
 '''In order to run this script, you need only change the following.'''
 NUM_TRANSFORMER_BLOCKS_LIST = [24, 32, 32]
-MODEL_NAMES = [{POST-SFT-pythia-1.4b}, {POST-SFT-pythia-2.8b}, {POST-SFT-pythia-6.9b}] # hf_username/model_name
+MODEL_NAMES = ["username/POST-SFT-pythia-1.4b", "username/POST-SFT-pythia-2.8b", "username/POST-SFT-pythia-6.9b"] # Replace username with actual HuggingFace username
 TASK_NAME = "bias" # can be "bias" "ethics" "truth"
 MODEL_FAMILY = "pythia" # can be "pythia" or "qwen"
 seed = 42
