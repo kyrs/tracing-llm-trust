@@ -51,7 +51,7 @@ def get_anthropic_dataset(tokenizer, split: str, indices=None, max_tokens: Optio
             max_length=current_max_length,
             truncation=True,
             padding="max_length",
-            add_special_tokens=False           # ← ­important
+            add_special_tokens=False           # important
         )
 
         labels = tokens["input_ids"].copy()
