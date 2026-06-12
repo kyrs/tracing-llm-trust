@@ -40,7 +40,9 @@ class BiasTask(Task):
                     probs,
                     num_samples=1,
                 ).flatten()
-            summed_loss = F.cross_entropy(logits, sampled_labels, reduction="sum")
+                masks = batch["labels"][..., 1:].contiguous().view(-1) == -100
+                sampled_labels[masks] = -100
+            summed_loss = F.cross_entropy(logits, sampled_labels, ignore_index=-100, reduction="sum")
         return summed_loss
 
     def compute_measurement(
