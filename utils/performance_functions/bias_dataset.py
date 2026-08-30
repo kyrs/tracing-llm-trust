@@ -1,13 +1,13 @@
 import itertools
 from typing import List, Dict
-import random
-import collections
 
 import torch
 from torch.utils.data import Dataset as TorchDataset
 from datasets import Dataset, Features, Sequence, Value
 from transformers import PreTrainedTokenizer
 import pandas as pd
+
+from utils.performance_functions.bias_split import split_bias_records
 
 # -----------------------------------------------------------------------------
 # Helpers ---------------------------------------------------------------------
@@ -269,19 +269,7 @@ def get_bias_agreement_dataset(
         if split not in ["train", "test"]:
             raise ValueError("`split` must be one of 'train' or 'test'")
 
-        grouped = collections.defaultdict(list)
-        for rec in triples:
-            grouped[rec["target_group"]].append(rec)
-
-        train_recs, test_recs = [], []
-        for group in sorted(TARGET_GROUPS):
-            group_recs = grouped[group]
-            random.Random(42).shuffle(group_recs)
-            n_total = len(group_recs)
-            n_test = int(n_total * 0.2)
-            test_recs.extend(group_recs[:n_test])
-            train_recs.extend(group_recs[n_test:])
-
+        train_recs, test_recs = split_bias_records(triples)
         triples = train_recs if split == "train" else test_recs
 
     # ------------------------------------------------------------------
@@ -333,9 +321,6 @@ def get_bias_agreement_dataset(
             "rejected_labels": Sequence(feature=Value(dtype='int32')),
         })
     )
-
-    if indices is not None:
-        ds = ds.select(indices)
 
     return ds
 
